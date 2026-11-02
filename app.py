@@ -208,6 +208,30 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     background: rgba(255,244,214,.04);
 }
 
+/* Bruja y bola de cristal */
+@keyframes pulso {
+    0%,100% { box-shadow: 0 0 30px 6px rgba(170,110,255,.55), inset 0 0 40px rgba(255,255,255,.2); }
+    50%     { box-shadow: 0 0 55px 14px rgba(190,140,255,.85), inset 0 0 55px rgba(255,255,255,.35); }
+}
+.escena-bruja { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:14px; margin:10px 0 6px 0; }
+.bruja { text-align:center; max-width:240px; }
+.bruja .emo-bruja { font-size:110px; line-height:1; animation: flota 3.5s ease-in-out infinite; filter: drop-shadow(0 0 14px rgba(170,110,255,.6)); }
+.burbuja { background: rgba(255,244,214,.96); color:#2a1a40; border-radius:18px; padding:10px 14px;
+           font-weight:700; font-size:15px; margin-bottom:6px; box-shadow:0 4px 15px rgba(0,0,0,.4); }
+.bola-wrap { text-align:center; }
+.bola { width:270px; height:270px; border-radius:50%; margin:0 auto;
+        background: radial-gradient(circle at 32% 28%, rgba(255,255,255,.55) 0%, rgba(190,150,255,.35) 18%, rgba(90,40,160,.85) 60%, rgba(30,10,70,.95) 100%);
+        border:2px solid rgba(220,190,255,.5); display:grid; grid-template-columns:1fr 1fr;
+        align-content:center; justify-items:center; gap:2px 0; padding:34px 38px; box-sizing:border-box;
+        animation: pulso 3s ease-in-out infinite; }
+.bola .item { text-align:center; animation: aparece .6s ease both; }
+.bola .item:last-child:nth-child(odd) { grid-column: 1 / 3; }
+.bola .item .e { font-size:40px; line-height:1.1; }
+.bola .item .n { font-size:15px; font-weight:800; color:#FFF4D6; text-shadow:0 0 6px #000; }
+.base-bola { width:150px; height:26px; margin:-6px auto 0 auto; background:linear-gradient(#c4962b,#7a5a12); border-radius:0 0 40px 40px; }
+.chips { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:14px 0 4px 0; }
+.chip { border:1px solid #E3B23C; border-radius:999px; padding:6px 14px; background:rgba(227,178,60,.1); font-weight:600; color:#FFF4D6; animation: aparece .6s ease both; }
+
 iframe[title='streamlit_option_menu.option_menu'] { border-radius: 16px; }
 
 /* Botón WhatsApp */
@@ -254,6 +278,31 @@ cls_guacharo = cls_clasicos + [
     ("73", "Hipopótamo"), ("74", "Turpial"), ("75", "Guácharo"),
 ]
 
+# El Guacharito Millonario: 101 animalitos (0, 00 y del 01 al 99)
+cls_guacharito = [
+    ("0", "Delfín"), ("00", "Ballena"), ("01", "Carnero"), ("02", "Toro"), ("03", "Ciempiés"),
+    ("04", "Alacrán"), ("05", "León"), ("06", "Rana"), ("07", "Perico"), ("08", "Ratón"),
+    ("09", "Águila"), ("10", "Tigre"), ("11", "Gato"), ("12", "Caballo"), ("13", "Mono"),
+    ("14", "Paloma"), ("15", "Zorro"), ("16", "Oso"), ("17", "Pavo"), ("18", "Burro"),
+    ("19", "Chivo"), ("20", "Cerdo"), ("21", "Gallo"), ("22", "Camello"), ("23", "Cebra"),
+    ("24", "Iguana"), ("25", "Gallina"), ("26", "Vaca"), ("27", "Perro"), ("28", "Zamuro"),
+    ("29", "Elefante"), ("30", "Caimán"), ("31", "Lapa"), ("32", "Ardilla"), ("33", "Pescado"),
+    ("34", "Venado"), ("35", "Jirafa"), ("36", "Culebra"), ("37", "Tortuga"), ("38", "Búfalo"),
+    ("39", "Lechuza"), ("40", "Avispa"), ("41", "Canguro"), ("42", "Tucán"), ("43", "Mariposa"),
+    ("44", "Chigüire"), ("45", "Garza"), ("46", "Puma"), ("47", "Pavo Real"), ("48", "Puercoespín"),
+    ("49", "Pereza"), ("50", "Canario"), ("51", "Pelícano"), ("52", "Pulpo"), ("53", "Caracol"),
+    ("54", "Grillo"), ("55", "Oso Hormiguero"), ("56", "Tiburón"), ("57", "Pato"), ("58", "Hormiga"),
+    ("59", "Pantera"), ("60", "Camaleón"), ("61", "Panda"), ("62", "Cachicamo"), ("63", "Cangrejo"),
+    ("64", "Gavilán"), ("65", "Araña"), ("66", "Lobo"), ("67", "Avestruz"), ("68", "Jaguar"),
+    ("69", "Conejo"), ("70", "Bisonte"), ("71", "Guacamaya"), ("72", "Gorila"), ("73", "Hipopótamo"),
+    ("74", "Turpial"), ("75", "Guácharo"), ("76", "Rinoceronte"), ("77", "Pingüino"), ("78", "Antílope"),
+    ("79", "Calamar"), ("80", "Murciélago"), ("81", "Cuervo"), ("82", "Cucaracha"), ("83", "Búho"),
+    ("84", "Camarón"), ("85", "Hámster"), ("86", "Buey"), ("87", "Cabra"), ("88", "Erizo de Mar"),
+    ("89", "Anguila"), ("90", "Hurón"), ("91", "Morrocoy"), ("92", "Cisne"), ("93", "Gaviota"),
+    ("94", "Paujil"), ("95", "Escarabajo"), ("96", "Caballito de Mar"), ("97", "Loro"),
+    ("98", "Cocodrilo"), ("99", "Guacharito"),
+]
+
 EMOJIS = {
     "Delfín": "🐬", "Ballena": "🐋", "Carnero": "🐏", "Toro": "🐂", "Ciempiés": "🐛",
     "Alacrán": "🦂", "León": "🦁", "Rana": "🐸", "Perico": "🦜", "Ratón": "🐭",
@@ -271,6 +320,11 @@ EMOJIS = {
     "Gavilán": "🦅", "Araña": "🕷️", "Lobo": "🐺", "Avestruz": "🪶", "Jaguar": "🐆",
     "Conejo": "🐰", "Bisonte": "🦬", "Guacamaya": "🦜", "Gorila": "🦍", "Hipopótamo": "🦛",
     "Turpial": "🐦", "Guácharo": "🦇",
+    "Cerdo": "🐷", "Rinoceronte": "🦏", "Pingüino": "🐧", "Antílope": "🦌", "Calamar": "🦑",
+    "Murciélago": "🦇", "Cuervo": "🐦", "Cucaracha": "🪳", "Búho": "🦉", "Camarón": "🦐",
+    "Hámster": "🐹", "Buey": "🐂", "Cabra": "🐐", "Erizo de Mar": "🐚", "Anguila": "🐍",
+    "Hurón": "🦦", "Morrocoy": "🐢", "Cisne": "🦢", "Gaviota": "🐦", "Paujil": "🦃",
+    "Escarabajo": "🪲", "Caballito de Mar": "🐠", "Loro": "🦜", "Cocodrilo": "🐊", "Guacharito": "🦅",
 }
 
 def emoji_de(nombre):
@@ -308,6 +362,29 @@ def boton_wa(texto_boton, mensaje):
               <a class="btn-wa" href="{url}" target="_blank">📲 {texto_boton}</a>
             </div>""",
         unsafe_allow_html=True,
+    )
+
+def escena_bruja(items, mensaje):
+    """Dibuja la brujita con su bola de cristal; items = lista de (num, nombre) o None."""
+    if items:
+        contenido = "".join(
+            f'<div class="item"><div class="e">{emoji_de(nom)}</div><div class="n">#{n}</div></div>'
+            for n, nom in items
+        )
+    else:
+        contenido = ('<div class="item" style="grid-column:1 / 3;">'
+                     '<div class="e" style="font-size:64px;">✨</div><div class="n">¿Cuál será?</div></div>')
+    return (
+        '<div class="escena-bruja">'
+        '<div class="bruja">'
+        f'<div class="burbuja">{mensaje}</div>'
+        '<div class="emo-bruja">🧙‍♀️</div>'
+        '</div>'
+        '<div class="bola-wrap">'
+        f'<div class="bola">{contenido}</div>'
+        '<div class="base-bola"></div>'
+        '</div>'
+        '</div>'
     )
 
 def girar(datos, veces=16, pausa=0.07):
@@ -358,13 +435,13 @@ st.markdown(
 # ---------------------------------------------------------------
 # NAVEGACIÓN
 # ---------------------------------------------------------------
-OPCIONES = ["Ruletas", "Tripleta", "Zona Interactiva"]
+OPCIONES = ["Ruletas", "Tripleta", "Zona Interactiva", "Guacharito"]
 
 if HAS_MENU:
     seleccion = option_menu(
         None,
         OPCIONES,
-        icons=["dice-5", "trophy", "controller"],
+        icons=["dice-5", "trophy", "controller", "magic"],
         orientation="horizontal",
         styles={
             "container": {"padding": "4px", "background-color": "#0e2721", "border-radius": "16px"},
@@ -449,7 +526,7 @@ elif seleccion == "Tripleta":
 # ---------------------------------------------------------------
 # ZONA INTERACTIVA
 # ---------------------------------------------------------------
-else:
+elif seleccion == "Zona Interactiva":
     st.markdown("### 🎮 Centro de Entretenimiento y Suerte")
     st.markdown("_Diviértete con nuestros minijuegos para descubrir un animalito especial._")
 
@@ -598,6 +675,39 @@ else:
                 )
                 boton_wa("Contarlo por WhatsApp",
                          f"¡Hola Casa de Oro! 🎁 En Rasca y Gana me salió el #{num} {nom}. ¡Quiero jugarlo!")
+
+# ---------------------------------------------------------------
+# GUACHARITO (la bruja y su bola de cristal)
+# ---------------------------------------------------------------
+else:
+    st.markdown("### 🔮 Descubre tu dato hoy en Guacharito")
+    st.markdown("_La bruja consulta su bola de cristal en El Guacharito Millonario: 101 animalitos, del 0 al 99 más el 00._")
+
+    lugar = st.empty()
+    lugar.markdown(escena_bruja(None, "¡Descubre tu dato hoy en Guacharito!"), unsafe_allow_html=True)
+
+    cantidad = st.radio("¿Cuántos datos quieres?", [3, 4], index=1, horizontal=True)
+
+    if st.button("🔮 CONSULTAR A LA BRUJA"):
+        for _ in range(12):
+            lugar.markdown(
+                escena_bruja(random.sample(cls_guacharito, 4), "Mmm... veo algo en la bola... ✨"),
+                unsafe_allow_html=True,
+            )
+            time.sleep(0.15)
+
+        datos = random.Random(f"{bloque_actual()}GUACHARITO").sample(cls_guacharito, 4)[:cantidad]
+        lugar.markdown(escena_bruja(datos, "¡Tus datos de hoy están listos! 🍀"), unsafe_allow_html=True)
+        st.toast("¡La bruja ha hablado! 🔮", icon="✨")
+
+        chips = "".join(f'<div class="chip">{emoji_de(nom)} #{n} {nom}</div>' for n, nom in datos)
+        st.markdown(f'<div class="chips">{chips}</div>', unsafe_allow_html=True)
+
+        txt = ", ".join([f"#{n} {nom}" for n, nom in datos])
+        boton_wa("Jugar estos datos por WhatsApp",
+                 f"¡Hola Casa de Oro! 🔮 La bruja me dio estos datos para Guacharito: {txt}. ¡Quiero jugarlos!")
+
+    st.caption(f"🔮 La bruja renueva sus datos a las {proximo_cambio().strftime('%I:%M %p')} (hora de Venezuela). Solo para entretenimiento.")
 
 # ---------------------------------------------------------------
 # PIE DE PÁGINA
