@@ -3,7 +3,8 @@ import random
 import time
 import base64
 import os
-from datetime import date
+import unicodedata
+from datetime import date, datetime, timedelta, timezone
 from urllib.parse import quote
 
 # Menú bonito (opcional): si no está instalado, usa un radio normal
@@ -23,6 +24,37 @@ st.set_page_config(
 )
 
 NUM_TAQUILLA = "584127456048"
+
+# ---- Rotación automática de animalitos ----
+# Cada cuántas horas cambia el animalito de la suerte y el acertijo.
+# Usa un número que divida 24 exacto: 3, 4, 6, 8 o 12.
+HORAS_CAMBIO = 6
+HORA_VE = timezone(timedelta(hours=-4))  # Hora de Venezuela
+
+def ahora_ve():
+    return datetime.now(HORA_VE)
+
+def hoy_ve():
+    return ahora_ve().date()
+
+def bloque_actual():
+    a = ahora_ve()
+    return a.date().toordinal() * (24 // HORAS_CAMBIO) + a.hour // HORAS_CAMBIO
+
+def proximo_cambio():
+    a = ahora_ve()
+    inicio = a.replace(hour=(a.hour // HORAS_CAMBIO) * HORAS_CAMBIO, minute=0, second=0, microsecond=0)
+    return inicio + timedelta(hours=HORAS_CAMBIO)
+
+def indice_rotativo(bloque, tam, sal):
+    """Índice que cambia en cada bloque de horas y nunca repite el del bloque anterior."""
+    i = random.Random(f"{bloque}{sal}").randrange(tam)
+    anterior = random.Random(f"{bloque - 1}{sal}").randrange(tam)
+    return (i + 1) % tam if i == anterior else i
+
+def normalizar(t):
+    t = unicodedata.normalize("NFD", t.strip().lower())
+    return "".join(c for c in t if unicodedata.category(c) != "Mn")
 
 # Si guardas tu flyer como "fondo.jpg" (o .png) junto a app.py, se usa de fondo
 def cargar_fondo():
@@ -176,6 +208,8 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     background: rgba(255,244,214,.04);
 }
 
+iframe[title='streamlit_option_menu.option_menu'] { border-radius: 16px; }
+
 /* Botón WhatsApp */
 .btn-wa {
     background-color:#25D366; color:white !important; padding:14px 28px; border-radius:999px;
@@ -305,15 +339,17 @@ st.markdown(
 st.markdown("<hr style='border:1px solid rgba(227,178,60,.4); margin:18px 0;'>", unsafe_allow_html=True)
 
 # Banner: animalito del día + frase
-rng_dia = random.Random(str(date.today()) + "ANIMAL_DEL_DIA")
-a_num, a_nom = rng_dia.choice(cls_clasicos)
-frase_dia = rng_dia.choice(FRASES)
+bloque = bloque_actual()
+a_num, a_nom = cls_clasicos[indice_rotativo(bloque, len(cls_clasicos), "ANIMAL")]
+frase_dia = FRASES[indice_rotativo(bloque, len(FRASES), "FRASE")]
+proxima = proximo_cambio().strftime("%I:%M %p")
 st.markdown(
     f"""
     <div class="banner-dia">
-        <div class="peq">✨ ANIMALITO DEL DÍA ✨</div>
+        <div class="peq">✨ ANIMALITO DE LA SUERTE ✨</div>
         <div class="gran">{emoji_de(a_nom)} #{a_num} {a_nom}</div>
         <div class="frase">“{frase_dia}”</div>
+        <div class="frase" style="margin-top:6px; opacity:.65; font-size:12px;">⏰ Próximo animalito a las {proxima} (hora de Venezuela)</div>
     </div>
     """,
     unsafe_allow_html=True,
@@ -352,7 +388,7 @@ if seleccion == "Ruletas":
     loteria_sel = st.selectbox("🎯 Elige la Ruleta:", loterias)
     fecha_esp = st.date_input(
         "📅 Selecciona tu fecha de la suerte:",
-        value=date.today(), min_value=date(1940, 1, 1), max_value=date(2036, 12, 31), key="f_rul",
+        value=hoy_ve(), min_value=date(1940, 1, 1), max_value=date(2036, 12, 31), key="f_rul",
     )
 
     if st.button("✨ GENERAR MI SUGERENCIA DE LA SUERTE"):
@@ -384,7 +420,7 @@ elif seleccion == "Tripleta":
     st.markdown("_Elige tu fecha y genera combinaciones de 3 animalitos (00 al 36) para sellar tu tripleta._")
     fecha_tri = st.date_input(
         "📅 Fecha para la Tripleta:",
-        value=date.today(), min_value=date(1940, 1, 1), max_value=date(2036, 12, 31), key="f_tri",
+        value=hoy_ve(), min_value=date(1940, 1, 1), max_value=date(2036, 12, 31), key="f_tri",
     )
 
     if st.button("🎯 GENERAR 3 OPCIONES DE TRIPLETA"):
@@ -470,7 +506,7 @@ else:
 
         # ---------- 2. ACERTIJO DEL DÍA ----------
         elif "Acertijo" in juego:
-            st.markdown("#### 🧩 El Acertijo del Día (cambia automáticamente)")
+            st.markdown(f"#### 🧩 El Acertijo de la Suerte (cambia cada {HORAS_CAMBIO} horas)")
 
             BANCO = [
                 ("Tengo trompa larga, orejas enormes y soy el más grande de la sabana.", "Elefante"),
@@ -480,18 +516,25 @@ else:
                 ("Vuelo de noche sin hacer ruido y mis ojos enormes lo ven todo.", "Lechuza"),
                 ("Parezco un caballo con pijama de rayas blancas y negras.", "Cebra"),
                 ("Camino de lado, tengo dos pinzas y vivo cerca de la playa.", "Cangrejo"),
+                ("Doy leche, tengo cuernos y en el corral me escuchan gritar mee.", "Chivo"),
+                ("Soy el mejor amigo del hombre y muevo la cola cuando estoy feliz.", "Perro"),
+                ("Canto al amanecer y despierto a toda la granja.", "Gallo"),
+                ("Tengo ocho patas y tejo una tela para atrapar mi comida.", "Araña"),
+                ("Soy un felino de rayas, vivo en la selva y todos me temen.", "Tigre"),
+                ("Soy un reptil largo, no tengo patas y me arrastro por el suelo.", "Culebra"),
+                ("Vivo en el mar, soy muy inteligente y me encanta saltar entre las olas.", "Delfín"),
+                ("Tengo joroba, vivo en el desierto y aguanto muchos días sin tomar agua.", "Camello"),
             ]
-            rng = random.Random(str(date.today()))
-            acertijo, correcta = rng.choice(BANCO)
+            acertijo, correcta = BANCO[indice_rotativo(bloque_actual(), len(BANCO), "ACERTIJO")]
 
-            st.markdown(f"**Acertijo de hoy ({date.today().strftime('%d/%m/%Y')}):**")
+            st.markdown(f"**Acertijo actual** (próximo cambio a las {proximo_cambio().strftime('%I:%M %p')})")
             st.markdown(f"_“{acertijo}”_")
             resp = st.text_input("¿Qué animalito soy?")
 
             if st.button("🧩 Verificar Acertijo"):
                 if resp.strip() == "":
                     st.warning("Escribe una respuesta para descubrir tu premio.")
-                elif resp.strip().lower() == correcta.lower():
+                elif normalizar(resp) == normalizar(correcta):
                     premio = random.choice(cls_clasicos)
                     st.balloons()
                     st.markdown(
