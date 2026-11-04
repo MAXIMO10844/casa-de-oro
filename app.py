@@ -97,7 +97,7 @@ label, .stMarkdown p, [data-testid="stWidgetLabel"] p { color: #FFF4D6 !importan
 input, div[data-baseweb="input"], div[data-baseweb="base-input"], div[data-baseweb="calendar"] {
     border-color: #E3B23C !important;
 }
-.stDateInput input, .stTextInput input {
+.stDateInput input, .stTextInput input, .stNumberInput input {
     border: 2px solid #E3B23C !important;
     box-shadow: 0 0 8px rgba(227,178,60,.35) !important;
 }
@@ -231,6 +231,45 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
 .base-bola { width:150px; height:26px; margin:-6px auto 0 auto; background:linear-gradient(#c4962b,#7a5a12); border-radius:0 0 40px 40px; }
 .chips { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:14px 0 4px 0; }
 .chip { border:1px solid #E3B23C; border-radius:999px; padding:6px 14px; background:rgba(227,178,60,.1); font-weight:600; color:#FFF4D6; animation: aparece .6s ease both; }
+
+/* Parlay */
+@keyframes rebota { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+.parlay-hero { text-align:center; border:2px solid #E3B23C; border-radius:20px; padding:18px 12px; margin:8px 0 14px 0;
+    background: linear-gradient(135deg, rgba(227,178,60,.14), rgba(37,211,102,.07)); box-shadow:0 8px 25px rgba(0,0,0,.4); animation: aparece .7s ease both; }
+.parlay-hero .tit { font-size:30px; font-weight:800; color:#E3B23C; letter-spacing:2px; }
+.parlay-hero p { margin:6px 0 0 0; font-size:15px; }
+.fila-deporte { display:flex; align-items:flex-end; justify-content:center; flex-wrap:wrap; gap:8px; margin:8px 0; }
+.balones { display:flex; gap:10px; font-size:38px; }
+.balones span { display:inline-block; animation: rebota 1.6s ease-in-out infinite; }
+.balones span:nth-child(2) { animation-delay:.2s; } .balones span:nth-child(3) { animation-delay:.4s; } .balones span:nth-child(4) { animation-delay:.6s; }
+
+/* Hechicero */
+@keyframes pulso-azul {
+    0%,100% { box-shadow: 0 0 18px 3px rgba(60,200,220,.5); }
+    50%     { box-shadow: 0 0 34px 9px rgba(90,230,255,.85); }
+}
+.escena-hech { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:16px; margin:10px 0 8px 0; }
+.hech { text-align:center; max-width:240px; }
+.hech .emo-hech { font-size:110px; line-height:1; animation: flota 3.5s ease-in-out infinite; filter: drop-shadow(0 0 14px rgba(60,200,220,.7)); }
+.panel-triples { display:flex; flex-wrap:wrap; justify-content:center; gap:14px; max-width:420px; }
+.triple-orbe { width:88px; height:88px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-size:28px; font-weight:800; letter-spacing:2px; color:#FFF4D6; text-shadow:0 0 8px #000;
+    background: radial-gradient(circle at 32% 28%, rgba(255,255,255,.5) 0%, rgba(80,210,230,.35) 20%, rgba(10,80,110,.95) 70%, rgba(4,30,50,.98) 100%);
+    border:2px solid rgba(150,235,255,.6); animation: pulso-azul 3s ease-in-out infinite, aparece .6s ease both; }
+
+/* Pollas */
+.polla { border:2px solid #E3B23C; border-radius:18px; padding:14px 10px; margin-bottom:14px; text-align:center;
+    background: rgba(227,178,60,.07); box-shadow:0 8px 25px rgba(0,0,0,.4); animation: aparece .6s ease both; }
+.polla .pt { font-size:13px; font-weight:800; letter-spacing:3px; color:#E3B23C; }
+.polla .bolas { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:10px 0 8px 0; }
+.bolita { width:54px; padding:6px 0; border-radius:14px; background:rgba(255,244,214,.08); border:1px solid rgba(227,178,60,.7); display:flex; flex-direction:column; align-items:center; }
+.bolita .be { font-size:22px; line-height:1.1; }
+.bolita .bn { font-size:17px; font-weight:800; color:#FFF4D6; }
+.polla .linea { font-size:15px; font-weight:600; letter-spacing:1px; color:#25D366; }
+
+/* Etiquetas del multiselect */
+span[data-baseweb="tag"] { background-color:#E3B23C !important; color:#0b1f1a !important; font-weight:700; }
+span[data-baseweb="tag"] span { color:#0b1f1a !important; }
 
 iframe[title='streamlit_option_menu.option_menu'] { border-radius: 16px; }
 
@@ -387,6 +426,56 @@ def escena_bruja(items, mensaje):
         '</div>'
     )
 
+BATEADOR = (
+    '<svg width="64" height="75" viewBox="0 0 130 150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="{estilo}">'
+    '<g fill="none" stroke="#E3B23C" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">'
+    '<path d="M62 46 L58 90"/><path d="M58 90 L38 132"/><path d="M58 90 L84 132"/><path d="M62 54 L88 46"/></g>'
+    '<path d="M86 48 L118 8" stroke="#FFF4D6" stroke-width="8" stroke-linecap="round"/>'
+    '<circle cx="62" cy="26" r="14" fill="#E3B23C"/>'
+    '<path d="M46 22 Q62 4 78 22 L84 24" fill="none" stroke="#FFF4D6" stroke-width="6" stroke-linecap="round"/>'
+    '<circle cx="14" cy="44" r="7" fill="#FFF4D6"/></svg>'
+)
+
+def semilla_persona(nombre, fecha, extra):
+    """Texto estable por persona y por día: mismo nombre/fecha/número => mismos resultados hoy."""
+    n = normalizar(" ".join((nombre or "").split()))
+    return f"{n}|{fecha or ''}|{'' if extra is None else extra}|{hoy_ve()}"
+
+def fmt_num(n):
+    return n if n in ("0", "00") else n.zfill(2)
+
+def generar_pollas(rng, cantidad, tam=6):
+    pollas, vistas = [], set()
+    while len(pollas) < cantidad:
+        p = rng.sample(cls_clasicos, tam)
+        clave = tuple(sorted(n for n, _ in p))
+        if clave not in vistas:
+            vistas.add(clave)
+            pollas.append(p)
+    return pollas
+
+def tarjeta_polla(i, polla):
+    bolas = "".join(
+        f'<div class="bolita"><span class="be">{emoji_de(nom)}</span><span class="bn">{fmt_num(n)}</span></div>'
+        for n, nom in polla
+    )
+    linea = ", ".join(fmt_num(n) for n, _ in polla)
+    return (f'<div class="polla"><div class="pt">POLLA {i}</div>'
+            f'<div class="bolas">{bolas}</div><div class="linea">{linea}</div></div>')
+
+def escena_hechicero(items, mensaje):
+    """Hechicero con sus orbes mágicos; items = lista de triples (texto) o None."""
+    orbes = "".join(f'<div class="triple-orbe">{t}</div>' for t in (items or ["???", "???", "???"]))
+    return (
+        '<div class="escena-hech">'
+        '<div class="hech">'
+        f'<div class="burbuja">{mensaje}</div>'
+        '<div class="emo-hech">🧙‍♂️</div>'
+        '</div>'
+        f'<div class="panel-triples">{orbes}</div>'
+        '</div>'
+    )
+
 def girar(datos, veces=16, pausa=0.07):
     """Efecto tragamonedas: muestra números/animales cambiando antes del resultado."""
     espacio = st.empty()
@@ -435,18 +524,18 @@ st.markdown(
 # ---------------------------------------------------------------
 # NAVEGACIÓN
 # ---------------------------------------------------------------
-OPCIONES = ["Ruletas", "Tripleta", "Zona Interactiva", "Guacharito"]
+OPCIONES = ["Ruletas", "Tripleta", "Zona Interactiva", "Guacharito", "Parlay", "Triples", "Pollas"]
 
 if HAS_MENU:
     seleccion = option_menu(
         None,
         OPCIONES,
-        icons=["dice-5", "trophy", "controller", "magic"],
+        icons=["dice-5", "trophy", "controller", "magic", "dribbble", "stars", "ticket-perforated"],
         orientation="horizontal",
         styles={
             "container": {"padding": "4px", "background-color": "#0e2721", "border-radius": "16px"},
             "icon": {"color": "#E3B23C", "font-size": "18px"},
-            "nav-link": {"color": "#FFF4D6", "font-weight": "600", "border-radius": "12px", "--hover-color": "rgba(227,178,60,0.15)"},
+            "nav-link": {"color": "#FFF4D6", "font-weight": "600", "font-size": "14px", "white-space": "nowrap", "padding": "8px 12px", "border-radius": "12px", "--hover-color": "rgba(227,178,60,0.15)"},
             "nav-link-selected": {"background-color": "#E3B23C", "color": "#0b1f1a", "font-weight": "800"},
         },
     )
@@ -517,9 +606,12 @@ elif seleccion == "Tripleta":
                 unsafe_allow_html=True,
             )
 
-        msg_t = (f"¡Hola Casa de Oro! 🎰 Vi las opciones de *Tripleta Millonaria* para el {fecha_tri}. "
-                 "¡Quiero sellar una combinación para los 11 sorteos!")
-        boton_wa("Pedir mi Tripleta por WhatsApp", msg_t)
+            # El mensaje de WhatsApp lleva los números de ESTA opción
+            tri_txt = " - ".join([f"#{n} {nom}" for n, nom in tri])
+            msg_t = (f"¡Hola Casa de Oro! 🎰 Quiero sellar esta *Tripleta Millonaria* "
+                     f"para los 11 sorteos ({fecha_tri.strftime('%d/%m/%Y')}):\n"
+                     f"Opción {op}: {tri_txt}")
+            boton_wa(f"Jugar la Opción {op} por WhatsApp", msg_t)
 
     st.caption("🎲 Las combinaciones son generadas al azar, solo para entretenimiento.")
 
@@ -679,7 +771,7 @@ elif seleccion == "Zona Interactiva":
 # ---------------------------------------------------------------
 # GUACHARITO (la bruja y su bola de cristal)
 # ---------------------------------------------------------------
-else:
+elif seleccion == "Guacharito":
     st.markdown("### 🔮 Descubre tu dato hoy en Guacharito")
     st.markdown("_La bruja consulta su bola de cristal en El Guacharito Millonario: 101 animalitos, del 0 al 99 más el 00._")
 
@@ -708,6 +800,107 @@ else:
                  f"¡Hola Casa de Oro! 🔮 La bruja me dio estos datos para Guacharito: {txt}. ¡Quiero jugarlos!")
 
     st.caption(f"🔮 La bruja renueva sus datos a las {proximo_cambio().strftime('%I:%M %p')} (hora de Venezuela). Solo para entretenimiento.")
+
+# ---------------------------------------------------------------
+# PARLAY
+# ---------------------------------------------------------------
+elif seleccion == "Parlay":
+    st.markdown("### 🏆 Parlay del Día")
+    izq = BATEADOR.replace("{estilo}", "")
+    der = BATEADOR.replace("{estilo}", "transform:scaleX(-1);")
+    st.markdown(
+        '<div class="parlay-hero">'
+        '<div class="tit">PARLAY DEL DÍA</div>'
+        f'<div class="fila-deporte">{izq}'
+        '<div class="balones"><span>⚾</span><span>🏀</span><span>⚽</span><span>🏈</span></div>'
+        f'{der}</div>'
+        '<p>Combinadas deportivas preparadas por nuestro equipo. Pídelas y te las enviamos directo por WhatsApp.</p>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+    deportes = st.multiselect(
+        "¿De qué deportes quieres tu parlay? (opcional)",
+        ["⚾ Béisbol", "🏀 Básquet", "⚽ Fútbol", "🏈 Fútbol Americano"],
+    )
+    texto_dep = (" de " + ", ".join(deportes)) if deportes else ""
+    msg_p = (f"¡Hola Casa de Oro! 🏆 Necesito un parlay para hoy ({hoy_ve().strftime('%d/%m/%Y')}){texto_dep}. "
+             "¿Qué tienes bueno?")
+    boton_wa("Pronóstico del día de hoy aquí", msg_p)
+    st.caption("🏆 Los parlays los prepara y envía nuestro equipo por WhatsApp. Apostar implica riesgo. Solo +18, juega con responsabilidad.")
+
+# ---------------------------------------------------------------
+# TRIPLES MILLONARIOS (el hechicero)
+# ---------------------------------------------------------------
+elif seleccion == "Triples":
+    st.markdown("### 🧙‍♂️ Triples Millonarios")
+    st.markdown("_El hechicero consulta tus datos y revela los triples (del 000 al 999) que la suerte tiene para ti hoy._")
+
+    lugar_h = st.empty()
+    lugar_h.markdown(escena_hechicero(None, "Dime tus datos y revelaré tus triples..."), unsafe_allow_html=True)
+
+    loteria_t = st.selectbox("🎯 ¿Para cuál triple?", ["Triple Chance", "Triple Zulia", "Triple Táchira"])
+    cantidad_t = st.radio("¿Cuántos triples quieres?", [3, 4, 5], index=1, horizontal=True)
+    st.markdown("**Cuéntale al hechicero (con uno de estos datos basta):**")
+    nombre_t = st.text_input("✍️ Tu nombre", key="nombre_t")
+    cumple_t = st.date_input("🎂 Tu fecha de cumpleaños", value=None, min_value=date(1920, 1, 1),
+                             max_value=hoy_ve(), format="DD/MM/YYYY", key="cumple_t")
+    edad_t = st.number_input("🔢 Tu edad", min_value=1, max_value=120, value=None, step=1, key="edad_t")
+
+    if st.button("🧙‍♂️ REVELAR MIS TRIPLES"):
+        if not (nombre_t.strip() or cumple_t or edad_t is not None):
+            st.warning("El hechicero necesita al menos un dato: tu nombre, tu cumpleaños o tu edad.")
+        else:
+            for _ in range(12):
+                frame = [f"{random.randrange(1000):03d}" for _ in range(cantidad_t)]
+                lugar_h.markdown(escena_hechicero(frame, "Los espíritus susurran... ✨"), unsafe_allow_html=True)
+                time.sleep(0.15)
+
+            rng = random.Random(f"TRIPLES|{loteria_t}|{semilla_persona(nombre_t, cumple_t, edad_t)}")
+            triples = [f"{x:03d}" for x in rng.sample(range(1000), cantidad_t)]
+            lugar_h.markdown(escena_hechicero(triples, "¡Estos son tus triples de hoy! 🍀"), unsafe_allow_html=True)
+            st.toast("¡El hechicero ha hablado! 🧙‍♂️", icon="✨")
+
+            lista_t = ", ".join(triples)
+            st.markdown(f'<div class="chips"><div class="chip">{loteria_t}: {lista_t}</div></div>', unsafe_allow_html=True)
+            boton_wa("Jugar estos triples por WhatsApp",
+                     f"¡Hola Casa de Oro! 🧙‍♂️ Quiero jugar estos triples para {loteria_t}: {lista_t}.")
+
+    st.caption("🧙‍♂️ Los triples se renuevan cada día y son al azar, solo para entretenimiento. +18.")
+
+# ---------------------------------------------------------------
+# POLLAS ANIMALITOS
+# ---------------------------------------------------------------
+elif seleccion == "Pollas":
+    st.markdown("### 🎟️ Pollas Animalitos")
+    st.markdown("_Cada polla trae 6 animalitos armados al azar solo para ti. Con uno de tus datos, el sistema crea tus pollas de hoy._")
+
+    loteria_p = st.selectbox("🎯 ¿Para cuál ruleta?", ["Lotto Activo", "La Granjita", "Ruleta Activa"])
+    cantidad_p = st.radio("¿Cuántas pollas quieres?", [3, 4], index=0, horizontal=True)
+    nombre_p = st.text_input("✍️ Tu nombre", key="nombre_p")
+    numero_p = st.number_input("⭐ Tu número especial", min_value=0, max_value=999, value=None, step=1, key="num_p")
+    fecha_p = st.date_input("📅 Una fecha especial para ti", value=None, min_value=date(1900, 1, 1),
+                            max_value=date(2100, 12, 31), format="DD/MM/YYYY", key="fecha_p")
+
+    if st.button("🎟️ GENERAR MIS POLLAS"):
+        if not (nombre_p.strip() or fecha_p or numero_p is not None):
+            st.warning("Escribe al menos un dato: tu nombre, un número especial o una fecha especial.")
+        else:
+            girar(cls_clasicos)
+            rng = random.Random(f"POLLAS|{loteria_p}|{semilla_persona(nombre_p, fecha_p, numero_p)}")
+            pollas = generar_pollas(rng, cantidad_p)
+
+            st.toast("¡Tus pollas están listas! 🎟️", icon="🍀")
+            st.markdown(f"### 🍀 Tus pollas para {loteria_p}:")
+            for i, polla in enumerate(pollas, 1):
+                st.markdown(tarjeta_polla(i, polla), unsafe_allow_html=True)
+
+            lineas = "\n".join(
+                f"Polla {i}: " + ", ".join(fmt_num(n) for n, _ in polla) for i, polla in enumerate(pollas, 1)
+            )
+            boton_wa("Jugar estas pollas por WhatsApp",
+                     f"¡Hola Casa de Oro! 🎟️ Quiero jugar estas pollas para {loteria_p}:\n{lineas}")
+
+    st.caption("🎟️ Las pollas se renuevan cada día y son al azar, solo para entretenimiento. +18.")
 
 # ---------------------------------------------------------------
 # PIE DE PÁGINA
